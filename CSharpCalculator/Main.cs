@@ -425,7 +425,7 @@ namespace CSharpCalculator
 
 
 
-        private void ClearHistory_Click(object sender, EventArgs e)
+                private void ClearHistory_Click(object sender, EventArgs e)
         {
             if (HistoryMemory.Items.Count == 0)
             {
@@ -521,27 +521,23 @@ namespace CSharpCalculator
 
         private void ZeroHandler()
         {
-            if (isAllZero(Calculator.GetUserInput1()) == true)
-            {
-                InputOutputBox.Text = "";
-            }
-            
+            InputOutputBox.Text = "";
         }
 
 
 
         private bool IsNumeric(string text)
         {
-            bool results = true;
+            bool results = false;
 
-            //if (Regex.IsMatch(text, @"^\d+$")) // old regex @" ^\d+\.E$" | @"^\d+E\.?\d*$"
-            //{
-            //    results = true;
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Please enter numbers only.");
-            //}
+            if (Regex.IsMatch(text, @" ^\d+\.E$")) // old regex @" ^\d+\.E$" | @"^\d+E\.?\d*$"
+            {
+                results = true;
+            }
+            else
+            {
+                MessageBox.Show("Please enter numbers only.");
+            }
 
             return results;
         }
@@ -579,7 +575,7 @@ namespace CSharpCalculator
 
     // ============================================================================
     // Name: Calculator
-    // Abstract: Class to hold calculator properties and methods. All math done here.
+    // Abstract: Class to hold calculator properties and methods. 
     // ============================================================================
     public class Calculator
     {
