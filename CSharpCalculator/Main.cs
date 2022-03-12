@@ -59,7 +59,7 @@ namespace CSharpCalculator
             }
             else
             {
-                InputOutputBox.Text = "0";
+                InputOutputBox.Text += "0";
             }
         }
 
@@ -521,7 +521,21 @@ namespace CSharpCalculator
 
         private void ZeroHandler()
         {
-            InputOutputBox.Text = "";
+            long inputLength = InputOutputBox.Text.Length;
+            string userInput = InputOutputBox.Text;
+
+            if (inputLength > 0)
+            {
+                if (userInput == string.Empty)
+                {
+                    InputOutputBox.Text = "0";
+                    Calculator.SetUserInput1("0");
+                }
+                else if (isAllZero(userInput) == true)
+                {
+                    InputOutputBox.Text = "";
+                }
+            }
         }
 
 
@@ -530,7 +544,7 @@ namespace CSharpCalculator
         {
             bool results = false;
 
-            if (Regex.IsMatch(text, @" ^\d+\.E$")) // old regex @" ^\d+\.E$" | @"^\d+E\.?\d*$"
+            if (Regex.IsMatch(text, @"^-*\d+\.?\d*E*\+*\d*$")) 
             {
                 results = true;
             }
