@@ -311,6 +311,21 @@ namespace CSharpCalculator
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
+                double result;
+                string num = InputOutputBox.Text;
+                string userInput1 = InputOutputBox.Text;
+                char mathOperator = '\u221A';
+                string userInput2 = "2";
+
+                // are these 5 lines necessary???
+                Calculator.SetUserInput1(userInput1);
+                Calculator.SetUserInput2(userInput2);
+                Calculator.SetOperator(mathOperator);
+                result = Calculator.CalculateSquareRoot(num);
+                Calculator.SetResult(result);
+
+                InputOutputBox.Text = result.ToString();
+                AddToHistory(userInput1, mathOperator, userInput2, result.ToString());
 
             }
         }
@@ -818,6 +833,19 @@ namespace CSharpCalculator
 
             Double.TryParse(num, out result);
             result *= result;
+
+            return result;
+        }
+
+
+        
+
+        public double CalculateSquareRoot(string num)
+        {
+            double result = 0;
+
+            double.TryParse(num, out result);
+            result = Math.Sqrt(result);
 
             return result;
         }
