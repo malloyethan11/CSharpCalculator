@@ -204,6 +204,7 @@ namespace CSharpCalculator
         private void Dot_Click(object sender, EventArgs e)
         {
             InputOutputBox.Text += ".";
+            InputOutputBox.Select(InputOutputBox.Text.Length, 0);
         }
 
 
@@ -296,7 +297,12 @@ namespace CSharpCalculator
 
         private void Backspace_Click(object sender, EventArgs e)
         {
-            
+            int textLength = InputOutputBox.Text.Length;
+
+            if (textLength > 0)
+            {
+                InputOutputBox.Text = InputOutputBox.Text.Remove(textLength - 1);
+            }
         }
 
 
@@ -327,7 +333,21 @@ namespace CSharpCalculator
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
+                double result;
+                string num = InputOutputBox.Text;
+                string userInput1 = InputOutputBox.Text;
+                char mathOperator = '^';
+                string userInput2 = "2";
 
+                // are these 5 lines necessary???
+                Calculator.SetUserInput1(userInput1);
+                Calculator.SetUserInput2(userInput2);
+                Calculator.SetOperator(mathOperator);
+                result = Calculator.CalculateSquare(num);
+                Calculator.SetResult(result);
+
+                InputOutputBox.Text = result.ToString();
+                AddToHistory(userInput1, mathOperator, userInput2, result.ToString());
             }
         }
 
@@ -510,6 +530,7 @@ namespace CSharpCalculator
             // need to manually handle zero keypress so that user can't enter "0000000"
             if (e.KeyChar == 48)
             {
+                // use ZeroHandler() instead of Zero_Click() because latter method causes bugs
                 ZeroHandler();
             }
 
@@ -565,17 +586,17 @@ namespace CSharpCalculator
 
 
 
-        private void SetUserInput(string num)
-        {
-            if (Calculator.GetUserInput1() == string.Empty)
-            {
-                Calculator.SetUserInput1(num);
-            }
-            else
-            {
-                Calculator.SetUserInput2(num);
-            }
-        }
+        //private void SetUserInput(string num)
+        //{
+        //    if (Calculator.GetUserInput1() == string.Empty)
+        //    {
+        //        Calculator.SetUserInput1(num);
+        //    }
+        //    else
+        //    {
+        //        Calculator.SetUserInput2(num);
+        //    }
+        //}
 
 
 
@@ -787,6 +808,18 @@ namespace CSharpCalculator
         public void Append(string num, string userInput)
         {
             userInput += num;
+        }
+
+
+
+        public double CalculateSquare(string num)
+        {
+            double result = 0;
+
+            Double.TryParse(num, out result);
+            result *= result;
+
+            return result;
         }
     }
 }

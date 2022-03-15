@@ -396,7 +396,7 @@ namespace CSharpCalculator
             // 
             this.ClearHistory.Location = new System.Drawing.Point(462, 10);
             this.ClearHistory.Name = "ClearHistory";
-            this.ClearHistory.Size = new System.Drawing.Size(44, 21);
+            this.ClearHistory.Size = new System.Drawing.Size(60, 21);
             this.ClearHistory.TabIndex = 33;
             this.ClearHistory.Text = "CH";
             this.ClearHistory.UseVisualStyleBackColor = true;
