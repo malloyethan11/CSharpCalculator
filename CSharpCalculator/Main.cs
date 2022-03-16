@@ -385,11 +385,47 @@ namespace CSharpCalculator
 
 
 
+        // Percent_Click() relies on the following Microsoft DevBlog post: https://devblogs.microsoft.com/oldnewthing/20080110-00/?p=23853
         private void Percent_Click(object sender, EventArgs e)
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
+                char mathOperator = Calculator.GetOperator();
+                string userInput1;
+                string userInput2;
+                userInput1 = Calculator.GetUserInput1();
+                userInput2 = Calculator.GetUserInput2();
 
+                if (userInput1 == string.Empty)
+                {
+                    userInput1 = InputOutputBox.Text;
+                    Calculator.SetUserInput1(userInput1);
+
+                    switch (mathOperator)
+                    {
+                        case '+': case '-':
+                            // do stuff
+                            break;
+                        case '*': case '/':
+                            // do stuff
+                            break;
+                    }
+                }
+                else if (userInput2 == string.Empty)
+                {
+                    userInput2 = InputOutputBox.Text;
+                    Calculator.SetUserInput2(userInput2);
+
+                    switch (mathOperator)
+                    {
+                        case '+': case '-':
+                            // do stuff
+                            break;
+                        case '*': case '/':
+                            // do stuff
+                            break;
+                    }
+                }
             }
         }
 
