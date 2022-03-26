@@ -488,7 +488,7 @@ namespace CSharpCalculator
 
 
 
-                private void ClearHistory_Click(object sender, EventArgs e)
+        private void ClearHistory_Click(object sender, EventArgs e)
         {
             if (HistoryMemory.Items.Count == 0)
             {
