@@ -213,14 +213,17 @@ namespace CSharpCalculator
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
-                Calculator.SetUserInput2(InputOutputBox.Text);
+                if (Calculator.GetPercentClicked() == "no" || Calculator.GetPercentClicked() == null)
+                {
+                    Calculator.SetUserInput2(InputOutputBox.Text);
+                }
+
                 char mathOperator = Calculator.GetOperator();
                 double result = 0;
                 double num1 = 0;
-                double num2 = 0;
+                double num2 = 0;                
                 string strNum1 = Calculator.GetUserInput1();
                 string strNum2 = Calculator.GetUserInput2();
-
                 double.TryParse(strNum1, out num1);
                 double.TryParse(strNum2, out num2);
 
@@ -247,10 +250,11 @@ namespace CSharpCalculator
         }
 
 
+
         private void Plus_Click(object sender, EventArgs e)
         {
             if (IsNumeric(InputOutputBox.Text) == true)
-            {
+            { 
                 Calculator.SetUserInput1(InputOutputBox.Text);
                 InputOutputBox.Text = string.Empty;
                 Calculator.SetOperator('+');
@@ -337,8 +341,9 @@ namespace CSharpCalculator
             Calculator.ResetAllLengths();
             Calculator.SetOperator('\0');
             Calculator.SetResult(0);
-            Calculator.SetUserInput1("\0");
-            Calculator.SetUserInput2("\0");
+            Calculator.SetUserInput1(string.Empty);
+            Calculator.SetUserInput2(string.Empty);
+            Calculator.SetPercentClicked(string.Empty);
             InputOutputBox.Text = string.Empty;
         }
 
@@ -375,21 +380,44 @@ namespace CSharpCalculator
 
 
 
-        private void OneOverX_Click(object sender, EventArgs e)
+        private void Reciprocal_Click(object sender, EventArgs e)
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
-
+                double input = 0.0;
+                Double.TryParse(InputOutputBox.Text, out input);
+                input = (1 / input);
+                InputOutputBox.Text = input.ToString();
             }
         }
 
 
 
+        // Percent_Click() relies on the following Microsoft DevBlog post: https://devblogs.microsoft.com/oldnewthing/20080110-00/?p=23853
         private void Percent_Click(object sender, EventArgs e)
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
+                char mathOperator = Calculator.GetOperator();
+                double dblUserInput1;
+                double dblUserInput2;
+                Calculator.SetUserInput2(InputOutputBox.Text);
+                string strUserInput1 = Calculator.GetUserInput1();
+                string strUserInput2 = Calculator.GetUserInput2();
+                double.TryParse(strUserInput1, out dblUserInput1);
+                double.TryParse(strUserInput2, out dblUserInput2);
 
+                Calculator.SetPercentClicked("yes");
+
+                if (strUserInput1 == string.Empty)
+                {
+                    InputOutputBox.Text = "0"; // the windows calculator does this, so I do it as well
+                }
+                else
+                {
+                    dblUserInput2 = dblUserInput1 * (dblUserInput2 / 100);
+                    Calculator.SetUserInput2(dblUserInput2.ToString());
+                }
             }
         }
 
@@ -413,7 +441,7 @@ namespace CSharpCalculator
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
-
+                
             }
         }
 
@@ -637,6 +665,7 @@ namespace CSharpCalculator
         private string m_UserInput2;
         private long m_Length1;
         private long m_Length2;
+        private string m_PercentClicked;
 
         // ------------------------------------------------------------------------
         // Getters and Setters
@@ -727,6 +756,18 @@ namespace CSharpCalculator
         public string GetMemValue()
         {
             return m_MemValue;
+        }
+
+
+
+        public void SetPercentClicked(string state)
+        {
+            m_PercentClicked = state;
+        }
+
+        public string GetPercentClicked()
+        {
+            return m_PercentClicked;
         }
 
 

@@ -48,7 +48,7 @@ namespace CSharpCalculator
             this.Squared = new System.Windows.Forms.Button();
             this.SquareRoot = new System.Windows.Forms.Button();
             this.Divide = new System.Windows.Forms.Button();
-            this.OneOverX = new System.Windows.Forms.Button();
+            this.Reciprocal = new System.Windows.Forms.Button();
             this.ClearEntry = new System.Windows.Forms.Button();
             this.ClearAllInput = new System.Windows.Forms.Button();
             this.Backspace = new System.Windows.Forms.Button();
@@ -255,15 +255,15 @@ namespace CSharpCalculator
             this.Divide.UseVisualStyleBackColor = true;
             this.Divide.Click += new System.EventHandler(this.Divide_Click);
             // 
-            // OneOverX
+            // Reciprocal
             // 
-            this.OneOverX.Location = new System.Drawing.Point(10, 126);
-            this.OneOverX.Name = "OneOverX";
-            this.OneOverX.Size = new System.Drawing.Size(66, 43);
-            this.OneOverX.TabIndex = 16;
-            this.OneOverX.Text = "1/x";
-            this.OneOverX.UseVisualStyleBackColor = true;
-            this.OneOverX.Click += new System.EventHandler(this.OneOverX_Click);
+            this.Reciprocal.Location = new System.Drawing.Point(10, 126);
+            this.Reciprocal.Name = "Reciprocal";
+            this.Reciprocal.Size = new System.Drawing.Size(66, 43);
+            this.Reciprocal.TabIndex = 16;
+            this.Reciprocal.Text = "1/x";
+            this.Reciprocal.UseVisualStyleBackColor = true;
+            this.Reciprocal.Click += new System.EventHandler(this.Reciprocal_Click);
             // 
             // ClearEntry
             // 
@@ -424,7 +424,7 @@ namespace CSharpCalculator
             this.Controls.Add(this.Squared);
             this.Controls.Add(this.SquareRoot);
             this.Controls.Add(this.Divide);
-            this.Controls.Add(this.OneOverX);
+            this.Controls.Add(this.Reciprocal);
             this.Controls.Add(this.Eight);
             this.Controls.Add(this.Nine);
             this.Controls.Add(this.Times);
@@ -469,7 +469,7 @@ namespace CSharpCalculator
         private System.Windows.Forms.Button Squared;
         private System.Windows.Forms.Button SquareRoot;
         private System.Windows.Forms.Button Divide;
-        private System.Windows.Forms.Button OneOverX;
+        private System.Windows.Forms.Button Reciprocal;
         private System.Windows.Forms.Button ClearEntry;
         private System.Windows.Forms.Button ClearAllInput;
         private System.Windows.Forms.Button Backspace;
