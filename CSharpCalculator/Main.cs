@@ -425,14 +425,14 @@ namespace CSharpCalculator
 
         private void MemoryRecall_Click(object sender, EventArgs e)
         {
-
+            InputOutputBox.Text = Calculator.GetMemValue();
         }
 
 
 
         private void MemoryClear_Click(object sender, EventArgs e)
         {
-
+            Calculator.SetMemValue("0");
         }
 
 
@@ -441,7 +441,13 @@ namespace CSharpCalculator
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
-                
+                double input = 0.0;
+                double memValue = 0.0;
+
+                Double.TryParse(Calculator.GetMemValue(), out memValue);
+                Double.TryParse(InputOutputBox.Text, out input);
+                memValue += input;
+                Calculator.SetMemValue(memValue.ToString());
             }
         }
 
@@ -451,7 +457,13 @@ namespace CSharpCalculator
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
+                double input = 0.0;
+                double memValue = 0.0;
 
+                Double.TryParse(Calculator.GetMemValue(), out memValue);
+                Double.TryParse(InputOutputBox.Text, out input);
+                memValue -= input;
+                Calculator.SetMemValue(memValue.ToString());
             }
         }
 
@@ -461,7 +473,7 @@ namespace CSharpCalculator
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
-
+                Calculator.SetMemValue(InputOutputBox.Text);
             }
         }
 
