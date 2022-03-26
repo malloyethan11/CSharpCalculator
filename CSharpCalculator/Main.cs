@@ -213,7 +213,7 @@ namespace CSharpCalculator
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
-                if (Calculator.GetPercentClicked() == "no")
+                if (Calculator.GetPercentClicked() == "no" || Calculator.GetPercentClicked() == null)
                 {
                     Calculator.SetUserInput2(InputOutputBox.Text);
                 }
@@ -384,7 +384,10 @@ namespace CSharpCalculator
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
-
+                double input = 0.0;
+                Double.TryParse(InputOutputBox.Text, out input);
+                input = (1 / input);
+                InputOutputBox.Text = input.ToString();
             }
         }
 
@@ -438,7 +441,7 @@ namespace CSharpCalculator
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
-
+                
             }
         }
 
