@@ -213,7 +213,9 @@ namespace CSharpCalculator
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
-                if (Calculator.GetPercentClicked() == "no" || Calculator.GetPercentClicked() == null)
+                if (Calculator.GetPercentClicked() == "no" || 
+                    Calculator.GetPercentClicked() == null ||
+                    Calculator.GetPercentClicked() == string.Empty)
                 {
                     Calculator.SetUserInput2(InputOutputBox.Text);
                 }
@@ -231,21 +233,43 @@ namespace CSharpCalculator
                 {
                     case '+':
                         result = Calculator.Add(num1, num2);
+                        Calculator.SetResult(result);
+                        DisplayResults(result);
+                        AddToHistory(strNum1, mathOperator, strNum2, result.ToString());
                         break;
                     case '-':
                         result = Calculator.Subtract(num1, num2);
+                        Calculator.SetResult(result);
+                        DisplayResults(result);
+                        AddToHistory(strNum1, mathOperator, strNum2, result.ToString());
                         break;
                     case '*':
                         result = Calculator.Multiply(num1, num2);
+                        Calculator.SetResult(result);
+                        DisplayResults(result);
+                        AddToHistory(strNum1, mathOperator, strNum2, result.ToString());
                         break;
                     case '/':
-                        result = Calculator.Divide(num1, num2);
+                        if (strNum1 == "0" && strNum2 == "0")
+                        {
+                            InputOutputBox.Text = "ERROR: 0 / 0  is undefined";
+                            HistoryMemory.Items.Add("ERROR: 0 / 0  is undefined");
+                        }
+                        else if (strNum1 != "0" && strNum2 == "0")
+                        {
+                            InputOutputBox.Text = "ERROR: Can't divide by zero";
+                            HistoryMemory.Items.Add("ERROR: Can't divide by zero");
+                        }
+                        else
+                        {
+                            result = Calculator.Divide(num1, num2);
+                            Calculator.SetResult(result);
+                            DisplayResults(result);
+                            AddToHistory(strNum1, mathOperator, strNum2, result.ToString());
+                        }
+                        
                         break;
                 }
-
-                Calculator.SetResult(result);
-                DisplayResults(result);
-                AddToHistory(strNum1, mathOperator, strNum2, result.ToString());
             }
         }
 
@@ -265,7 +289,11 @@ namespace CSharpCalculator
 
         private void Minus_Click(object sender, EventArgs e)
         {
-            if (IsNumeric(InputOutputBox.Text) == true)
+            if (InputOutputBox.Text == string.Empty)
+            {
+                InputOutputBox.Text += '-';
+            }
+            else if (IsNumeric(InputOutputBox.Text) == true)
             {
                 Calculator.SetUserInput1(InputOutputBox.Text);
                 InputOutputBox.Text = string.Empty;
@@ -338,6 +366,7 @@ namespace CSharpCalculator
 
         private void ClearAllInput_Click(object sender, EventArgs e)
         {
+            // does not clear memory, only MemoryClear_Click() does that
             Calculator.ResetAllLengths();
             Calculator.SetOperator('\0');
             Calculator.SetResult(0);
@@ -432,7 +461,7 @@ namespace CSharpCalculator
 
         private void MemoryClear_Click(object sender, EventArgs e)
         {
-            Calculator.SetMemValue("0");
+            Calculator.SetMemValue(string.Empty);
         }
 
 
@@ -495,7 +524,17 @@ namespace CSharpCalculator
 
         private void Memory_Click(object sender, EventArgs e)
         {
+            string memValue = string.Empty;
+            memValue = Calculator.GetMemValue();
 
+            if (memValue == string.Empty)
+            {
+                MessageBox.Show("No value currently stored in memory");
+            }
+            else
+            {
+                MessageBox.Show($"Memory value is {memValue}");
+            }   
         }
 
 
@@ -641,20 +680,6 @@ namespace CSharpCalculator
 
 
 
-        //private void SetUserInput(string num)
-        //{
-        //    if (Calculator.GetUserInput1() == string.Empty)
-        //    {
-        //        Calculator.SetUserInput1(num);
-        //    }
-        //    else
-        //    {
-        //        Calculator.SetUserInput2(num);
-        //    }
-        //}
-
-
-
         private void AddToHistory(string num1, char mathOperator, string num2, string result)
         {
             HistoryMemory.Items.Add(num1 + " " + mathOperator + " " + num2 + " = " + result);
@@ -791,10 +816,12 @@ namespace CSharpCalculator
         {
             m_Operator = '0';
             m_Result = 0;
+            m_MemValue = string.Empty;
             m_UserInput1 = "";
             m_UserInput2 = "";
             m_Length1 = m_UserInput1.Length;
             m_Length2 = m_UserInput2.Length;
+            m_PercentClicked = string.Empty;
         }
 
 

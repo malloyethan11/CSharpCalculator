@@ -60,7 +60,6 @@ namespace CSharpCalculator
             this.InputOutputBox = new System.Windows.Forms.TextBox();
             this.MemoryStore = new System.Windows.Forms.Button();
             this.HistoryMemory = new System.Windows.Forms.ListBox();
-            this.History = new System.Windows.Forms.Button();
             this.Memory = new System.Windows.Forms.Button();
             this.ClearHistory = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -372,21 +371,11 @@ namespace CSharpCalculator
             this.HistoryMemory.TabIndex = 30;
             this.HistoryMemory.SelectedIndexChanged += new System.EventHandler(this.HistoryMemory_SelectedIndexChanged);
             // 
-            // History
-            // 
-            this.History.Location = new System.Drawing.Point(302, 10);
-            this.History.Name = "History";
-            this.History.Size = new System.Drawing.Size(74, 21);
-            this.History.TabIndex = 31;
-            this.History.Text = "History";
-            this.History.UseVisualStyleBackColor = true;
-            this.History.Click += new System.EventHandler(this.History_Click);
-            // 
             // Memory
             // 
-            this.Memory.Location = new System.Drawing.Point(382, 10);
+            this.Memory.Location = new System.Drawing.Point(302, 10);
             this.Memory.Name = "Memory";
-            this.Memory.Size = new System.Drawing.Size(74, 21);
+            this.Memory.Size = new System.Drawing.Size(105, 21);
             this.Memory.TabIndex = 32;
             this.Memory.Text = "Memory";
             this.Memory.UseVisualStyleBackColor = true;
@@ -394,11 +383,11 @@ namespace CSharpCalculator
             // 
             // ClearHistory
             // 
-            this.ClearHistory.Location = new System.Drawing.Point(462, 10);
+            this.ClearHistory.Location = new System.Drawing.Point(419, 10);
             this.ClearHistory.Name = "ClearHistory";
-            this.ClearHistory.Size = new System.Drawing.Size(60, 21);
+            this.ClearHistory.Size = new System.Drawing.Size(105, 21);
             this.ClearHistory.TabIndex = 33;
-            this.ClearHistory.Text = "CH";
+            this.ClearHistory.Text = "Clear History";
             this.ClearHistory.UseVisualStyleBackColor = true;
             this.ClearHistory.Click += new System.EventHandler(this.ClearHistory_Click);
             // 
@@ -409,7 +398,6 @@ namespace CSharpCalculator
             this.ClientSize = new System.Drawing.Size(534, 375);
             this.Controls.Add(this.ClearHistory);
             this.Controls.Add(this.Memory);
-            this.Controls.Add(this.History);
             this.Controls.Add(this.HistoryMemory);
             this.Controls.Add(this.MemoryStore);
             this.Controls.Add(this.InputOutputBox);
@@ -481,7 +469,6 @@ namespace CSharpCalculator
         private System.Windows.Forms.TextBox InputOutputBox;
         private System.Windows.Forms.Button MemoryStore;
         private System.Windows.Forms.ListBox HistoryMemory;
-        private System.Windows.Forms.Button History;
         private System.Windows.Forms.Button Memory;
         private System.Windows.Forms.Button ClearHistory;
     }
