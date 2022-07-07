@@ -195,7 +195,8 @@ namespace CSharpCalculator
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
-
+                string entry = InputOutputBox.Text;
+                InputOutputBox.Text = "-" + entry;
             }
         }
 
@@ -400,9 +401,8 @@ namespace CSharpCalculator
                 char mathOperator = '^';
                 string userInput2 = "2";
 
-                // are these 5 lines necessary???
                 Calculator.SetUserInput1(userInput1);
-                Calculator.SetUserInput2(userInput2);
+                Calculator.SetUserInput2("2");
                 Calculator.SetOperator(mathOperator);
                 result = Calculator.CalculateSquare(num);
                 Calculator.SetResult(result);
@@ -517,20 +517,6 @@ namespace CSharpCalculator
             {
                 Calculator.SetMemValue(InputOutputBox.Text);
             }
-        }
-
-
-
-        private void History_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void HistoryMemory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
 

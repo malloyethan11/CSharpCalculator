@@ -369,7 +369,6 @@ namespace CSharpCalculator
             this.HistoryMemory.Name = "HistoryMemory";
             this.HistoryMemory.Size = new System.Drawing.Size(222, 316);
             this.HistoryMemory.TabIndex = 30;
-            this.HistoryMemory.SelectedIndexChanged += new System.EventHandler(this.HistoryMemory_SelectedIndexChanged);
             // 
             // Memory
             // 
