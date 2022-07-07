@@ -211,22 +211,29 @@ namespace CSharpCalculator
 
         private void Equals_Click(object sender, EventArgs e)
         {
+            char mathOperator = Calculator.GetOperator();
+            double result = Calculator.GetResult();
+            double num1 = 0;
+            double num2 = 0;
+            string strNum1 = Calculator.GetUserInput1();
+            string strNum2 = "0";
+            double.TryParse(strNum1, out num1);
+            
             if (IsNumeric(InputOutputBox.Text) == true)
             {
-                if (Calculator.GetPercentClicked() == "no" || 
-                    Calculator.GetPercentClicked() == null ||
-                    Calculator.GetPercentClicked() == string.Empty)
+                if (Calculator.GetPercentClicked() == false && Calculator.GetEqualsClicked() == false)
                 {
                     Calculator.SetUserInput2(InputOutputBox.Text);
                 }
 
-                char mathOperator = Calculator.GetOperator();
-                double result = 0;
-                double num1 = 0;
-                double num2 = 0;                
-                string strNum1 = Calculator.GetUserInput1();
-                string strNum2 = Calculator.GetUserInput2();
-                double.TryParse(strNum1, out num1);
+                if (Calculator.GetEqualsClicked() == true && InputOutputBox.Text == result.ToString())
+                {
+                    Calculator.SetUserInput1(result.ToString());
+                    strNum1 = Calculator.GetUserInput1();
+                    double.TryParse(strNum1, out num1);
+                }
+
+                strNum2 = Calculator.GetUserInput2();
                 double.TryParse(strNum2, out num2);
 
                 switch (mathOperator)
@@ -237,18 +244,21 @@ namespace CSharpCalculator
                         DisplayResults(result);
                         AddToHistory(strNum1, mathOperator, strNum2, result.ToString());
                         break;
+
                     case '-':
                         result = Calculator.Subtract(num1, num2);
                         Calculator.SetResult(result);
                         DisplayResults(result);
                         AddToHistory(strNum1, mathOperator, strNum2, result.ToString());
                         break;
+
                     case '*':
                         result = Calculator.Multiply(num1, num2);
                         Calculator.SetResult(result);
                         DisplayResults(result);
                         AddToHistory(strNum1, mathOperator, strNum2, result.ToString());
                         break;
+
                     case '/':
                         if (strNum1 == "0" && strNum2 == "0")
                         {
@@ -267,9 +277,10 @@ namespace CSharpCalculator
                             DisplayResults(result);
                             AddToHistory(strNum1, mathOperator, strNum2, result.ToString());
                         }
-                        
                         break;
                 }
+
+                Calculator.SetEqualsClicked(true);
             }
         }
 
@@ -372,8 +383,9 @@ namespace CSharpCalculator
             Calculator.SetResult(0);
             Calculator.SetUserInput1(string.Empty);
             Calculator.SetUserInput2(string.Empty);
-            Calculator.SetPercentClicked(string.Empty);
+            Calculator.SetPercentClicked(false);
             InputOutputBox.Text = string.Empty;
+            Calculator.SetEqualsClicked(false);
         }
 
 
@@ -427,16 +439,16 @@ namespace CSharpCalculator
         {
             if (IsNumeric(InputOutputBox.Text) == true)
             {
+                Calculator.SetUserInput2(InputOutputBox.Text);
                 char mathOperator = Calculator.GetOperator();
                 double dblUserInput1;
                 double dblUserInput2;
-                Calculator.SetUserInput2(InputOutputBox.Text);
                 string strUserInput1 = Calculator.GetUserInput1();
                 string strUserInput2 = Calculator.GetUserInput2();
                 double.TryParse(strUserInput1, out dblUserInput1);
                 double.TryParse(strUserInput2, out dblUserInput2);
 
-                Calculator.SetPercentClicked("yes");
+                Calculator.SetPercentClicked(true);
 
                 if (strUserInput1 == string.Empty)
                 {
@@ -446,6 +458,7 @@ namespace CSharpCalculator
                 {
                     dblUserInput2 = dblUserInput1 * (dblUserInput2 / 100);
                     Calculator.SetUserInput2(dblUserInput2.ToString());
+                    InputOutputBox.Text = dblUserInput2.ToString();
                 }
             }
         }
@@ -702,7 +715,9 @@ namespace CSharpCalculator
         private string m_UserInput2;
         private long m_Length1;
         private long m_Length2;
-        private string m_PercentClicked;
+        private bool m_PercentClicked;
+        private bool m_EqualsClicked;
+        private bool m_ClearClicked;
 
         // ------------------------------------------------------------------------
         // Getters and Setters
@@ -797,14 +812,26 @@ namespace CSharpCalculator
 
 
 
-        public void SetPercentClicked(string state)
+        public void SetPercentClicked(bool state)
         {
             m_PercentClicked = state;
         }
 
-        public string GetPercentClicked()
+        public bool GetPercentClicked()
         {
             return m_PercentClicked;
+        }
+
+
+
+        public void SetEqualsClicked(bool state)
+        {
+            m_EqualsClicked = state;
+        }
+
+        public bool GetEqualsClicked()
+        {
+            return m_EqualsClicked;
         }
 
 
@@ -821,7 +848,8 @@ namespace CSharpCalculator
             m_UserInput2 = "";
             m_Length1 = m_UserInput1.Length;
             m_Length2 = m_UserInput2.Length;
-            m_PercentClicked = string.Empty;
+            m_PercentClicked = false;
+            m_EqualsClicked = false;
         }
 
 
